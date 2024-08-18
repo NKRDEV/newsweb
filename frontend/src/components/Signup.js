@@ -5,9 +5,13 @@ const Signup = () => {
   const [email,setEmail] = useState("");
   const [username,setUsername] = useState("");
   const [password, setPassword] = useState("");
-
   function handleSignup(e) {
     e.preventDefault();
+    const formdata = {
+      email: email,
+      username: username,
+      password: password,
+    };
     console.log("signup email:",email,"password:",password);
     const url ='http://127.0.0.1:8000/signup/'
     fetch(url, {
@@ -15,16 +19,8 @@ const Signup = () => {
       headers: {
           'Content-Type': 'application/json',
       },
-      body: JSON.stringify({
-          email: email,
-          username: username,
-          password: password,
-      }),
+      body: JSON.stringify(formdata),
     })
-    .then((response) => {
-      return response.json();
-    })
-
   }
     return (
       <form onSubmit={handleSignup} className="form-container">
