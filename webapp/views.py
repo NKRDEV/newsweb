@@ -6,18 +6,20 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
 # Create your views here.
-@api_view(['GET','POST'])
+@api_view(['GET'])
 def home(request):
     if request.method == 'GET':
         articles = WebModel.objects.all()
         serializer = WebSerializer(articles,many=True)
         return JsonResponse(serializer.data,safe=False)
 
-    elif request.method =='POST':
-        serializer = WebSerializer(data=request.data)
-        if serializer.valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+@api_view(['POST'])
+def add(request):
+    serializer = WebSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response( status=status.HTTP_201_CREATED)
+    return Response(serializer.errors,status=status.HTTP_404_BAD_REQUEST)
 
 
 @api_view(['GET','PUT','DELETE'])
@@ -31,8 +33,8 @@ def articlelist(request,id):
 
     
     elif request.method =='PUT':
-        serializer = WebSerializer(article,data=requst.data)
-        if serializer.valid():
+        serializer = WebSerializer(article,data=request.data)
+        if serializer.is_valid():
             serializer.save
             return Response(serializer.data,)
         return Response(serializer.errors,status=status.HTTP_404_BAD_REQUEST)
@@ -49,3 +51,7 @@ def register(request):
         user = serializer.save()
         return Response( status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+
+
