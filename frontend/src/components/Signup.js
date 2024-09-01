@@ -25,28 +25,25 @@ const Signup = () => {
     return (
       <form onSubmit={handleSignup} className="form-container">
             <h1>Signup</h1>
-            <input
-                className="form-input"
-                type="text"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                placeholder="Username"
-            />
-            <input
-                className="form-input"
-                type="email"
-                value={email}
+            <div class="form-example">
+              <label for="name">Enter your username: </label>
+              <input type="text" value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  placeholder="Username" required/>
+        </div>
+        <div class="form-example">
+          <label for="name">Enter your email: </label>
+          <input type="email" value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="email"
-            />
-            <input
-                className="form-input"
-                type="password"
-                value={password}
+                placeholder="email" required/>
+        </div>
+        <div class="form-example">
+          <label for="name">Enter your password: </label>
+          <input type="password" value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                placeholder="Password"
-            />
-            <button onClick={handleSignup}>Create</button>
+                placeholder="password" required/>
+        </div>
+            <button onClick={handleSignup}>signup</button>
         </form> 
     );
   }
