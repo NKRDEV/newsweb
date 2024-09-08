@@ -24,7 +24,7 @@ def add(request):
 
 @api_view(['GET','PUT','DELETE'])
 
-def articlelist(request,id):
+def articlelist(request, id):
     article = WebModel.objects.get(pk=id)
     if request.method =='GET':
         serializer = WebSerializer(article)
